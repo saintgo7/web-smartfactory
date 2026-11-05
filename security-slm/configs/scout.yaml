@@ -1,0 +1,68 @@
+# hf_scout.py 설정 — 허깅페이스에서 보안 특화 소형 모델/데이터셋 후보를 찾는다.
+# 검색어(search)는 repo id에 포함된 문자열로 매칭되고, filter는 태그로 매칭된다.
+
+size_range_b: [0.5, 10]          # 후보로 볼 파라미터 범위(십억 단위)
+limit_per_query: 50              # 쿼리당 가져올 최대 개수
+recent_days: 365                 # 이 기간 내 수정된 저장소에 가산점
+
+model_queries:
+  - {search: "security"}
+  - {search: "cyber"}
+  - {search: "cybersec"}
+  - {search: "foundation-sec"}
+  - {search: "primus"}
+  - {search: "forensic"}
+  - {search: "dfir"}
+  - {search: "threat"}
+  - {search: "siem"}
+  - {search: "securebert"}
+  - {filter: "cybersecurity"}
+  - {filter: "security"}
+
+# 검색 결과와 관계없이 항상 조회하는 후보 (docs/PLAN.md §3)
+watchlist:
+  - fdtn-ai/Foundation-Sec-8B
+  - fdtn-ai/Foundation-Sec-8B-Instruct
+  - fdtn-ai/Foundation-Sec-8B-Reasoning
+  - trendmicro-ailab/Llama-Primus-Reasoning
+  - trendmicro-ailab/Llama-Primus-Merged
+  - athena129/CyberSecQwen-4B
+  - BrainboxAI/cyber-analyst-4B
+  - Qwen/Qwen3.5-4B
+  - Qwen/Qwen3.5-9B
+  - Qwen/Qwen3.5-2B
+  - google/gemma-4-E4B
+  - google/gemma-4-E2B
+  - cisco-ai/SecureBERT2.0-base
+  - cisco-ai/SecureBERT2.0-biencoder
+  - cisco-ai/SecureBERT2.0-NER
+
+# 운영 투입 가능한 라이선스 (가산점)
+license_preferred: [apache-2.0, mit, bsd-3-clause, llama3.1, llama3.2, llama3.3, gemma]
+# 운영 배제 라이선스 (감점) — 접두어 매칭
+license_blocked_prefixes: [cc-by-nc, cc-by-nc-sa, cc-by-nc-nd, other-nc]
+
+# repo id에 이 단어가 있으면 '검토 필요'로 표시하고 감점 (공격 지향/안전장치 제거 모델)
+review_keywords: [offensive, redteam, red-team, jailbreak, uncensored, abliterated, exploit, malware-gen]
+
+dataset_queries:
+  - {search: "cybersecurity"}
+  - {search: "cyber"}
+  - {search: "security"}
+  - {search: "mitre"}
+  - {search: "attack"}
+  - {search: "cve"}
+  - {search: "forensic"}
+  - {search: "dfir"}
+  - {search: "threat"}
+  - {search: "cti"}
+  - {search: "primus"}
+  - {search: "sigma"}
+  - {search: "loghub"}
+
+dataset_watchlist:
+  - trendmicro-ailab/Primus-Instruct
+  - trendmicro-ailab/Primus-Reasoning
+  - trendmicro-ailab/Primus-Seed
+  - trendmicro-ailab/Primus-FineWeb
+  - Trendyol/Trendyol-Cybersecurity-Instruction-Tuning-Dataset
